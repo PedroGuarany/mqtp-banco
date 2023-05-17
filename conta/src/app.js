@@ -1,15 +1,17 @@
-const express = require("express");
-var amqp = require("amqplib/callback_api");
+import express from 'express';
+import amqp from 'amqplib/callback_api.js';
+import cors from 'cors';
 
+import pages from './pages/pages.js';
 const app = express();
 const port = 3001;
 
-app.use(require("cors")());
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 const router = express.Router();
-router.get("/", (req, res) => res.sendFile("/index.html", { root: __dirname }));
+
+router.get("/", (req, res) => res.send( pages.defaultHtml() ));
 
 app.use("/", router);
 app.listen(port, () => {
