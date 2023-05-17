@@ -25,10 +25,10 @@ amqp.connect("amqp://user:password@localhost", (error, connection) => {
     if (error1) {
       throw error1;
     }
-    const queue = "cpf_isma";
+    const queue = "07103435316";
     const msg = {
       cpf: "12345678910",
-      nome: "Ismael",
+      nome: "Guarany",
       idade: 20,
       valor: 1000,
     };
