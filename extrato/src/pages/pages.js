@@ -1,7 +1,6 @@
-
 export default class pages {
   static defaultHtml (children) {
-    return`<!DOCTYPE html>
+    return `<!DOCTYPE html>
       <html lang="pt-BR">
         <head>
           <meta charset="UTF-8" />
@@ -12,16 +11,16 @@ export default class pages {
         <body>
           ${children ?? ''}
         </body>
-      </html>`;
+      </html>`
   }
 
   static generateListOfTransactions (transactions) {
-    let body = transactions
+    const body = transactions
       .map((transaction) => {
-        return `<li>Transação recebida de ${transaction.nome} de R$${transaction.valor} reais</li>`;
+        return `<li>Transação recebida de ${transaction.nome} de R$${transaction.valor} reais</li>`
       })
-      .join("");
-  
-    return this.defaultHtml(`<ul>${body}</ul>`);
+      .join('')
+
+    return this.defaultHtml(`<ul>${body}</ul>`)
   }
 }

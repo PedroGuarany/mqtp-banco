@@ -1,6 +1,6 @@
 export default class pages {
   static defaultHtml (children) {
-    return`<!DOCTYPE html>
+    return `<!DOCTYPE html>
       <html lang="pt-BR">
         <head>
           <meta charset="UTF-8" />
@@ -11,6 +11,6 @@ export default class pages {
         <body>
           ${children ?? ''}
         </body>
-      </html>`;
+      </html>`
   }
 }

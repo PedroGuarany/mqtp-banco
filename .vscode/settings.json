@@ -1,0 +1,8 @@
+{
+    "files.eol": "\n",
+    "prettier.configPath": ".prettierrc.js",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    }
+  }
+  

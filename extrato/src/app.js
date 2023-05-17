@@ -1,49 +1,49 @@
-import express from "express";
-import amqp from "amqplib/callback_api.js";
-import cors from "cors";
+import express from 'express'
+import amqp from 'amqplib/callback_api.js'
+import cors from 'cors'
 
-import pages from "./pages/pages.js";
+import pages from './pages/pages.js'
 
-const app = express();
-const port = 3000;
+const app = express()
+const port = 3000
 
-app.use(cors());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-const router = express.Router();
+app.use(cors())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+const router = express.Router()
 
-let transactions = [];
+const transactions = []
 
-router.get("/", (req, res) =>
+router.get('/', (req, res) =>
   res.send(pages.defaultHtml())
-);
-router.get("/transacoes", (req, res) => {
-  return res.send(pages.generateListOfTransactions(transactions));
-});
+)
+router.get('/transacoes', (req, res) => {
+  return res.send(pages.generateListOfTransactions(transactions))
+})
 
-amqp.connect("amqp://user:password@localhost", (error, connection) => {
+amqp.connect('amqp://user:password@localhost', (error, connection) => {
   if (error) {
-    throw error;
+    throw error
   }
   connection.createChannel((error1, channel) => {
     if (error1) {
-      throw error1;
+      throw error1
     }
-    const queue = "07103435316";
+    const queue = '07103435316'
 
     channel.assertQueue(queue, {
-      durable: false,
-    });
+      durable: false
+    })
 
     channel.consume(queue, (msg) => {
-      transactions.push(JSON.parse(msg.content));
+      transactions.push(JSON.parse(msg.content))
     }, {
       noAck: true
-    });
-  });
-});
+    })
+  })
+})
 
-app.use("/", router);
+app.use('/', router)
 app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
-});
+  console.log(`Servidor rodando em http://localhost:${port}`)
+})
