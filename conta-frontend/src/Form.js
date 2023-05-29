@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-
+import OutlinedInput from '@mui/material/OutlinedInput';
+import FormControl from '@mui/material/FormControl';
 export default function Form() {
 
 
@@ -9,15 +9,25 @@ export default function Form() {
         <Box
         component="form"
         sx={{
-          '& > :not(style)': { m: 1, width: '25ch' },
+          '& > :not(style)': { m: 1, width: '100%' },
           display: 'flex',
-          justifyContent: 'space-between'
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center'
         }}
         noValidate
         autoComplete="off"
       > 
-      <TextField id="standard-basic" label="Destinatário" variant="standard" />
-      <TextField type="number" id="standard-basic" label="Valor" variant="standard" />
+      <Box component="form" noValidate autoComplete="off">
+        <FormControl sx={{ width: '100%' }}>
+          <OutlinedInput placeholder="Destinatário" />
+        </FormControl>
+      </Box>
+      <Box component="form" noValidate autoComplete="off">
+        <FormControl sx={{ width: '100%' }}>
+          <OutlinedInput type='number' placeholder="Valor" />
+        </FormControl>
+      </Box>
       </Box>
     );
 }
