@@ -8,7 +8,6 @@ import Modal from '@mui/material/Modal';
 import Form from './Form';
 import CloseIcon from '@mui/icons-material/Close';
 
-import { styled } from '@mui/material/styles';
 
 import Typography from '@mui/material/Typography';
 
@@ -24,11 +23,7 @@ const style = {
   p: 4,
 };
 
-const ColorButton = styled(Button)(({ theme }) => ({
-  '&:hover': {
-    backgroundColor: '#33cc94d9'
-  }
-}))
+
 
 export default function MenuAppBar() {
   const [open, setOpen] = React.useState(false);
@@ -89,18 +84,6 @@ export default function MenuAppBar() {
           </Box>
           <Box id="modal-modal-description" sx={{ mt: 2 }}>
                      <Form />
-                     <Box sx={{
-                        display: 'flex',
-                        margin: '32px 0 0 0'
-                     }}>
-                        <ColorButton variant="contained" sx={{
-                          width: '100%',
-                          padding: '16.5px',
-                          background: '#33CC94',
-                          color: '#FFF',
-                          textTransform: 'capitalize',
-                        }}>Continuar</ColorButton>
-                     </Box>
           </Box>
         </Box>
       </Modal>

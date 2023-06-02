@@ -21,7 +21,8 @@ export default function MainContent() {
                 backgroundColor: '#FFFFFF',
                 padding: '18px',
                 border: '1px solid #8f9aa533',
-                borderRadius: '4px'
+                borderRadius: '4px',
+                boxShadow: 'rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px'
             }}>
                 <Typography variant='p' sx={{
                     fontFamily: 'Roboto, sans-serif',
