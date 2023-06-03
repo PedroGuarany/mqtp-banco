@@ -3,3 +3,11 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.deposito {
+  color: red !important;
+}
+
+.transferenciaRecebida {
+  color: green !important;
+}
