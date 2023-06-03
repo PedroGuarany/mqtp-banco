@@ -1,5 +1,5 @@
 import './App.css';
-import MenuAppBar from './Menu';
+import MenuAppBar from './Header';
 import TableContent from './Table';
 
 function App() {

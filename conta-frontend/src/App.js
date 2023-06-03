@@ -1,6 +1,6 @@
 import './App.css';
 import MainContent from './MainContent';
-import MenuAppBar from './Menu';
+import MenuAppBar from './Header';
 
 function App() {
   return (
