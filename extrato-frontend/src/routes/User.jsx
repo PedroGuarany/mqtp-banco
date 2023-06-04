@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import '../App.css';
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
@@ -25,14 +25,19 @@ const dados = [
     { id: 10, nome: 'Rafael', tipo: 'transferenciaRecebida', valor: '689.00', data: '21/10/2023' }
   ];
 
-  
-  export default function TableContent() {
-      
+export default function User() {
     const [ tableData, setData ] = useState([]);
 
     useEffect(() => {
         setData(dados);
     }, []);
+
+    let { userId } = useParams();
+
+    // eslint-disable-next-line eqeqeq
+    const userDados = tableData.filter(dadosDaTable => (dadosDaTable.id == userId));
+
+    console.log(userId);
 
     return (
         <Box sx={{
@@ -49,25 +54,24 @@ const dados = [
                 <Table sx={{ width: '100%' }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="left">Nome</TableCell>
-                            <TableCell align="left">Valor</TableCell>
-                            <TableCell align="left">Data</TableCell>
+                            <TableCell align="center">Data</TableCell>
+                            <TableCell align="center">Nome</TableCell>
+                            <TableCell align="center">Valor</TableCell>
                             <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-
-                        {tableData.map(dadosDaTable => (                            
-                                        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={dadosDaTable.id}>
-                                            <TableCell>{dadosDaTable.nome}</TableCell>
-                                            <TableCell className={dadosDaTable.tipo}>{new Intl.NumberFormat("pt-BR", {
-                                                style: "currency",
-                                                currency: "BRL"
-                                            }).format(dadosDaTable.valor)}</TableCell>
-                                            <TableCell>{dadosDaTable.data}</TableCell>
-                                            <TableCell><Button variant="text"><Link style={{ textDecoration: 'none'}} to={"/user/" + dadosDaTable.id}>ver</Link></Button></TableCell>
-                                        </TableRow>
-                                ))}
+                        {userDados.map(dadosDoUsuario => (
+                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={dadosDoUsuario.id}>
+                                <TableCell align="center">{dadosDoUsuario.data}</TableCell>
+                                <TableCell align="center">{dadosDoUsuario.nome}</TableCell>
+                                <TableCell align="center" className={dadosDoUsuario.tipo}>{new Intl.NumberFormat("pt-BR", {
+                                            style: "currency",
+                                            currency: "BRL"
+                                        }).format(dadosDoUsuario.valor)}</TableCell>
+                                <TableCell align="right"><Button variant="text"><Link style={{ textDecoration: 'none'}} to={"/"}>voltar</Link></Button></TableCell>
+                            </TableRow>
+                        ))}
                     </TableBody>
                 </Table>
             </TableContainer>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../App.css';
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
@@ -11,6 +11,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 const dados = [
     { id: 1, nome: 'Elias', tipo: 'transferenciaRecebida', valor: '522.00', data: '20/03/2023' },
@@ -25,19 +26,14 @@ const dados = [
     { id: 10, nome: 'Rafael', tipo: 'transferenciaRecebida', valor: '689.00', data: '21/10/2023' }
   ];
 
-export default function User() {
+  
+  export default function TableContent() {
+      
     const [ tableData, setData ] = useState([]);
 
     useEffect(() => {
         setData(dados);
     }, []);
-
-    let { userId } = useParams();
-
-    // eslint-disable-next-line eqeqeq
-    const userDados = tableData.filter(dadosDaTable => (dadosDaTable.id == userId));
-
-    console.log(userId);
 
     return (
         <Box sx={{
@@ -54,24 +50,25 @@ export default function User() {
                 <Table sx={{ width: '100%' }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align="left">Nome</TableCell>
-                            <TableCell align="left">Valor</TableCell>
-                            <TableCell align="left">Data</TableCell>
+                            <TableCell align="center">Data</TableCell>
+                            <TableCell align="center">Nome</TableCell>
+                            <TableCell align="center">Valor</TableCell>
                             <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {userDados.map(dadosDoUsuario => (
-                            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={dadosDoUsuario.id}>
-                                <TableCell>{dadosDoUsuario.nome}</TableCell>
-                                <TableCell className={dadosDoUsuario.tipo}>{new Intl.NumberFormat("pt-BR", {
-                                            style: "currency",
-                                            currency: "BRL"
-                                        }).format(dadosDoUsuario.valor)}</TableCell>
-                                <TableCell>{dadosDoUsuario.data}</TableCell>
-                                <TableCell><Button variant="text"><Link style={{ textDecoration: 'none'}} to={"/"}>voltar</Link></Button></TableCell>
-                            </TableRow>
-                        ))}
+
+                        {tableData.map(dadosDaTable => (                            
+                                        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={dadosDaTable.id}>
+                                            <TableCell align="center">{dadosDaTable.data}</TableCell>
+                                            <TableCell align="center">{dadosDaTable.nome}</TableCell>
+                                            <TableCell align="center" className={dadosDaTable.tipo}>{new Intl.NumberFormat("pt-BR", {
+                                                style: "currency",
+                                                currency: "BRL"
+                                            }).format(dadosDaTable.valor)}</TableCell>
+                                            <TableCell align="right"><Button size="small" variant="text"><Link style={{ textDecoration: 'none', color: '#888988'}} to={"/user/" + dadosDaTable.id}><KeyboardArrowRightIcon /></Link></Button></TableCell>
+                                        </TableRow>
+                                ))}
                     </TableBody>
                 </Table>
             </TableContainer>
