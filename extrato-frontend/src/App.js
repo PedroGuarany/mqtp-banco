@@ -1,12 +1,12 @@
+import { Outlet } from 'react-router-dom';
 import './App.css';
-import MenuAppBar from './Header';
-import TableContent from './Table';
+import MenuAppBar from './components/Header';
 
 function App() {
   return (
     <div className="App">
       <MenuAppBar />
-      <TableContent />
+      <Outlet />
     </div>
   );
 }
