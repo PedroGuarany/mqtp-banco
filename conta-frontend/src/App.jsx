@@ -1,12 +1,12 @@
 import './App.css';
-import MainContent from './MainContent';
-import MenuAppBar from './Header';
+import MenuAppBar from './components/Header';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
       <MenuAppBar />
-      <MainContent />
+      <Outlet />
     </div>
   );
 }
