@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const ColorButton = styled(Button)(({ theme }) => ({
   '&:hover': {
@@ -17,6 +19,8 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function Form() {
+
+    let { userId } = useParams();
 
     const [state, setState] = React.useState({
     open: false,
@@ -32,12 +36,18 @@ export default function Form() {
 
     const verifacaoValor = (newState) => () => {
       var valorTransferencia = document.getElementById('valorTransferencia');
+      var destinatario = document.getElementById('destinatario');
     
       if (valorTransferencia.value < 0) {
           setState({ open: true, ...newState});
-          valorTransferencia.value = 0;
-       
+          valorTransferencia.value = 0; 
       }
+
+      axios.post(`http://localhost:3000/user/${userId}/transferencia`, {
+        destinatario: destinatario.value,
+        valor: Number(valorTransferencia.value)
+      });
+      handleClose();
     }
     
     return (
@@ -60,16 +70,16 @@ export default function Form() {
         noValidate
         autoComplete="off"
       > 
-      <Box component="form" noValidate autoComplete="off">
+      <Box noValidate autoComplete="off">
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
           <label style={{ fontFamily: 'Roboto, sans-serif', fontSize: '15px', padding: '6px 0' }}>Destinatário:</label>
-          <TextField placeholder="123.456.789-10" />
+          <TextField id="destinatario" placeholder="123.456.789-10" />
         </Box>
       </Box>
-      <Box component="form" noValidate autoComplete="off">
-      <Box fullWidth sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Box noValidate autoComplete="off">
+      <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
           <label style={{ fontFamily: 'Roboto, sans-serif', fontSize: '15px', padding: '6px 0' }}>Valor:</label>
-          <TextField type="number" inputProps={{ min: 0, max: 100000000000000000 }} id="valorTransferencia" placeholder="R$ 1000"/>
+          <TextField type="number" inputProps={{ min: 0 }} id="valorTransferencia" placeholder="R$ 1000"/>
         </Box>
         <Box sx={{ display: 'flex', margin: '32px 0 0 0' }}>
                         <ColorButton variant="contained" onClick={ verifacaoValor({vertical: 'top', horizontal: 'right'}) } sx={{

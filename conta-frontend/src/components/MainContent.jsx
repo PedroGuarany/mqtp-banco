@@ -1,11 +1,47 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import mqtt from 'precompiled-mqtt'
 
+const client = mqtt.connect('ws://127.0.0.1:15675/ws', {
+        username: 'user',
+        password: 'password'
+    })
 
 export default function MainContent() {
-   
+    const [user, setUser] = useState({});
+    let { userId } = useParams();
 
+    useEffect(() => {
+        if (!userId)
+            return;
+        client.subscribe(userId)
+        client.on('message', (topic, message) => {
+            if(!user)
+                return;
+            let data = JSON.parse(message.toString())
+            if (data.destinatario === userId)
+                user.saldo += data.valor
+            else
+                user.saldo -= data.valor
+
+            setUser({...user})
+        })
+
+        return () => {
+            client.unsubscribe(userId)
+        }
+    }, [user, userId])
+
+    useEffect(() => {
+        axios.get(`http://localhost:3000/user/${userId}`).then(response => {
+            setUser(response.data)
+        });
+    }, [userId])
+    
     return (
         <Box sx={{
             display: 'flex',
@@ -31,7 +67,7 @@ export default function MainContent() {
                     lineHeight: '22px',
                     color: 'black'
                 }}>
-                    Saldo disponível
+                    Olá, {user.nome}
                 </Typography>
                 <Box sx={{
                     display: 'flex',
@@ -56,7 +92,7 @@ export default function MainContent() {
                         lineHeight: '45px',
                         color: 'black'
                         }}>
-                        500,00
+                        {user.saldo}
                     </Typography>
                 </Box>
             </Box>

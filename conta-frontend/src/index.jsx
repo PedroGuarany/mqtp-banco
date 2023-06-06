@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Home from './routes/Home';
+import MainContent from './components/MainContent';
 
 const router = createBrowserRouter([
   {
@@ -12,11 +12,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/", 
-        element: <Home />
+        element: <MainContent />
       },
       {
         path: "/:userId",
-        element: <Home />
+        element: <MainContent />
       }
     ]
   }

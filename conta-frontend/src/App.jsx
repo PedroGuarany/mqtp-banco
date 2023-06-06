@@ -1,12 +1,12 @@
 import './App.css';
-import MainContent from './MainContent';
-import MenuAppBar from './Header';
+import MenuAppBar from './components/Header';
+import Home from './routes/Home';
 
 function App() {
   return (
     <div className="App">
       <MenuAppBar />
-      <MainContent />
+      <Home />
     </div>
   );
 }
